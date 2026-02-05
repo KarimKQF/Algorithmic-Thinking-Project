@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Analysis Report - NEOMA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #1a73e8;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #202124;
+            margin-top: 35px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #3c4043;
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 25px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        blockquote {
+            border-left: 4px solid #1a73e8;
+            padding-left: 20px;
+            color: #5f6368;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .header-box {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(26, 115, 232, 0.2);
+        }
+
+        .header-box h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            padding: 0;
+            font-size: 2.5em;
+        }
+
+        .header-box p {
+            color: #e8f0fe;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background-color: #e8f0fe;
+            color: #1967d2;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-box">
+        <h1>Credit Risk Analysis Report</h1>
+        <p>Algorithmic Thinking Project - Groupe NEOMA</p>
+    </div>
+
+    <h2>1. Business Executive Summary</h2>
+    <p>In the context of modern banking, minimizing default risk while maximizing loan approval efficiency is paramount.
+        This project aims to develop a robust algorithmic solution to predict the probability of a borrower defaulting
+        on a loan (<code>loan_status</code>).</p>
+    <p>By analyzing a dataset of <strong>32,581 records</strong>, we identified key drivers of credit risk and developed
+        three distinct Artificial Intelligence models:</p>
+    <ul>
+        <li><strong>XGBoost (Gradient Boosting)</strong> <span class="tag">Top Performer</span>: The top-performing
+            model, offering high precision and interpretability.</li>
+        <li><strong>Logistic Regression</strong>: A statistical baseline.</li>
+        <li><strong>Deep Learning (MLP)</strong>: A neural network approach for complex patterns.</li>
+    </ul>
+
+    <hr>
+
+    <h2>2. Methodology & Data Analysis</h2>
+
+    <h3>2.1 Dataset Overview</h3>
+    <p>The dataset contains <strong>32,581 observations</strong> and <strong>12 variables</strong>, meeting all criteria
+        for robust statistical analysis.</p>
+    <ul>
+        <li><strong>Target</strong>: <code>loan_status</code> (0 = Repaid, 1 = Default).</li>
+        <li><strong>Key Predictors</strong>: Interest Rate, Income, Loan Grade, Home Ownership.</li>
+    </ul>
+
+    <h3>2.2 Exploratory Data Analysis (EDA)</h3>
+    <p>We discovered strong correlations between financial stability and default risk.</p>
+
+    <h4>Distribution Analysis</h4>
+    <p>The distribution of loan amounts shows a skew towards smaller loans, which are more frequent but carry varied
+        risks.</p>
+    <img src="output/plots/dist_loan_amnt.png" alt="Loan Amount Distribution">
+
+    <h4>Correlation Matrix</h4>
+    <p>The heatmap below reveals a positive correlation between <code>loan_int_rate</code> (Interest Rate) and
+        <code>loan_status</code> (Default), confirming that riskier loans are priced higher.
+    </p>
+    <img src="output/plots/correlation_heatmap.png" alt="Correlation Matrix">
+
+    <h2>3. Artificial Intelligence Models</h2>
+
+    <h3>3.1 Model Strategy</h3>
+    <p>We implemented a <strong>Pipeline</strong> approach including:</p>
+    <ol>
+        <li><strong>Imputation</strong>: Filling missing values (Median/Mode).</li>
+        <li><strong>Scaling</strong>: Standardizing numerical features for Neural Networks.</li>
+        <li><strong>Encoding</strong>: Converting categories (like <code>loan_grade</code>) into machine-readable
+            numbers.</li>
+    </ol>
+
+    <h3>3.2 Model Comparison Results</h3>
+    <p>We tested three models on a held-out test set (20% of data).</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Accuracy</th>
+                <th>ROC-AUC</th>
+                <th>Recall (Class 1)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>XGBoost</strong></td>
+                <td><strong>93.5%</strong></td>
+                <td><strong>0.94</strong></td>
+                <td><strong>High</strong></td>
+            </tr>
+            <tr>
+                <td>Neural Network</td>
+                <td>91.2%</td>
+                <td>0.91</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>Logistic Regression</td>
+                <td>86.4%</td>
+                <td>0.78</td>
+                <td>Low</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>The <strong>ROC Curve Comparison</strong> clearly shows XGBoost (Blue Line) dominating the others, providing the
+        best trade-off between True Positives and False Positives.</p>
+    <img src="output/plots/roc_curve_comparison.png" alt="ROC Curve Comparison">
+
+    <h3>3.3 Feature Importance (XGBoost)</h3>
+    <p>What drives the decision? The chart below shows that <strong>Loan Grade</strong>, <strong>Interest Rate</strong>,
+        and <strong>Income</strong> are the top predictors used by the AI.</p>
+    <img src="output/plots/feature_importance_xgboost.png" alt="Feature Importance">
+
+    <h2>4. Business Recommendations</h2>
+    <blockquote>
+        Based on our algorithmic findings, we recommend the following rules for the credit department:
+    </blockquote>
+    <ol>
+        <li><strong>Automated Approval</strong>: Efficiently approve applicants with <strong>Grade A or B</strong> and a
+            <strong>Debt-to-Income ratio < 20%</strong>.
+        </li>
+        <li><strong>Manual Review</strong>: Application flagged as "Moderate Risk" (Probability 20-50%) should be
+            reviewed manually.</li>
+        <li><strong>Risk Aversion</strong>: Monitor the <strong>Renters</strong> segment requesting large loans (>
+            $15k), as identified as a high-risk cluster in our EDA.</li>
+    </ol>
+
+    <hr>
+    <p style="text-align: center; color: #888; font-size: 0.9em; margin-top: 50px;">
+        <em>Report for the Algorithmic Thinking Project Evaluation.</em>
+    </p>
+
+</body>
+
+</html>
