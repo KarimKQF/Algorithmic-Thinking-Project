@@ -1,45 +1,55 @@
 # Projet Credit Risk Analysis - Groupe NEOMA
 
-Ce dossier contient l'ensemble du code source, des modèles et du dashboard pour l'analyse du risque de crédit.
+Ce dossier contient une solution Hybride (R + Python) pour l'analyse du risque de crédit.
 
 ## 📂 Contenu du dossier
 
-*   `analysis.py` : Script principal d'analyse de données, entraînement des modèles (XGBoost, Logistic Regression, MLP) et génération des graphiques.
+*   `analysis.R` : **NOUVEAU** - Script R principal d'analyse de données.
 *   `dashboard.py` : Application interactive (Streamlit) pour visualiser les résultats et simuler des demandes de prêt.
-*   `REPORT.html` : Le rapport complet du projet (format Web, avec graphiques).
+*   `REPORT.html` : Le rapport complet du projet.
 *   `data/` : Dossier contenant le jeu de données `credit_risk_dataset(in).csv`.
-*   `requirements.txt` : Liste des bibliothèques Python nécessaires.
-*   `run_dashboard.bat` : Script pour lancer le dashboard en un clic (Windows).
-*   `output/` : Dossier contenant les graphiques générés par l'analyse.
+*   `install_packages.R` : Script pour installer les librairies R nécessaires.
+*   `requirements.txt` : Liste des bibliothèques Python nécessaires pour le dashboard.
+*   `run_analysis.bat` : Script pour lancer l'analyse R (Génération des graphiques).
+*   `run_dashboard.bat` : Script pour lancer le dashboard interactif.
+*   `output/` : Dossier contenant les graphiques générés par `analysis.R`.
 
 ## 🚀 Installation & Lancement
 
 ### 1. Pré-requis
-Assurez-vous d'avoir **Python** installé sur votre machine.
+*   **R** doit être installé.
+*   **Python** doit être installé.
 
 ### 2. Installation des dépendances
-Ouvrez un terminal dans ce dossier et exécutez la commande suivante pour installer les bibliothèques nécessaires :
 
+**Pour R (Analyse) :**
+Double-cliquez sur `install_packages.R` ou lancez dans un terminal R :
+```r
+source("install_packages.R")
+```
+
+**Pour Python (Dashboard) :**
+Ouvrez un terminal et installez les dépendances :
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Lancer le Dashboard (Recommandé)
-Double-cliquez simplement sur le fichier **`run_dashboard.bat`**.
-Cela ouvrira automatiquement votre navigateur avec l'interface interactive.
+### 3. Exécution du Worklow
 
-### 4. Lancer l'Analyse complète 
-Si vous souhaitez régénérer tous les modèles et les graphiques statiques, lancez le script d'analyse :
+**Étape A : Lancer l'Analyse (R)**
+Double-cliquez sur **`run_analysis.bat`**.
+Cela va :
+1.  Charger les données.
+2.  Générer tous les graphiques d'analyse (Distributions, Corrélations, ROC Curves).
+3.  Sauvegarder les résultats dans le dossier `output/plots`.
 
-```bash
-python analysis.py
-```
+**Étape B : Lancer le Dashboard (Python)**
+Double-cliquez sur **`run_dashboard.bat`**.
+Cela ouvrira votre navigateur avec l'interface interactive pour explorer les données et simuler des prédictions.
 
-## 📊 Fonctionnalités du Dashboard
-*   **Overview** : Statistiques globales sur le portefeuille.
-*   **EDA** : Exploration interactives des variables (Distributions, Corrélations).
-*   **Model Performance** : Comparaison des modèles (ROC Curves, Matrices de confusion).
-*   **Risk Simulator** : Outil de simulation temps réel pour estimer la probabilité de défaut d'un nouveau client.
+## 📊 Fonctionnalités
+*   **Analyse R** : Traitement statistique robuste, modélisation (XGBoost, Neural Net, GLM), et génération de graphiques de publication.
+*   **Dashboard Python** : Exploration interactive et simulateur de risque temps réel.
 
 ---
 
